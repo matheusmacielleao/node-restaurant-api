@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: The Dancing Pony
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: http://localhost:3000
+paths:
+  /dishes:
+    get:
+      tags:
+        - dishes
+      summary: Get All Dishes
+      description: Get All Dishes
+      operationId: getAllDishes
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    post:
+      tags:
+        - dishes
+      summary: Create Dish
+      description: Create Dish
+      operationId: createDish
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [description, image_url, name, price]
+              properties:
+                description:
+                  type: string
+                  example: a nice pizza
+                image_url:
+                  type: string
+                  example: n/a
+                name:
+                  type: string
+                  example: pizza
+                price:
+                  type: number
+                  example: 54.9
+            examples:
+              Create Dish:
+                value:
+                  description: a nice pizza
+                  image_url: n/a
+                  name: pizza
+                  price: 54.9
+      responses:
+        "200":
+          description: ""
+  /dishes/{id}:
+    get:
+      tags:
+        - dishes
+      summary: Get One Dish By Id
+      description: Get One Dish By Id
+      operationId: getOneDishById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: number
+          required: true
+        - name: limit
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    delete:
+      tags:
+        - dishes
+      summary: Delete Dish
+      description: Delete Dish
+      operationId: deleteDish
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: number
+          required: true
+        - name: limit
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+    patch:
+      tags:
+        - dishes
+      summary: Update Dish
+      description: Update Dish
+      operationId: updateDish
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: number
+          required: true
+        - name: limit
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: a nice pizza
+                image_url:
+                  type: string
+                  example: n/a
+                name:
+                  type: string
+                  example: pizza
+                price:
+                  type: number
+                  example: 54.9
+            examples:
+              Create Dish:
+                value:
+                  description: other-pizza
+                  price: 54.9
+      responses:
+        "200":
+          description: ""
+  /dishes/{id}/rating:
+    post:
+      tags:
+        - dishes
+      summary: Rate a Dish
+      description: Rate a Dish
+      operationId: rateADish
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: number
+          required: true
+        - name: limit
+          in: query
+          schema:
+            type: string
+        - name: offset
+          in: query
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                rating:
+                  type: number
+                  example: 5
+            examples:
+              Rate a Dish:
+                value:
+                  rating: 5
+      responses:
+        "200":
+          description: ""
+  /auth:
+    post:
+      tags:
+        - user
+      summary: Generate Token
+      description: Generate Token
+      operationId: generateToken
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+            example: L0rd0fTheRings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickname:
+                  type: string
+                  example: matheusml
+                password:
+                  type: string
+                  example: "1234"
+            examples:
+              Generate Token:
+                value:
+                  nickname: matheusml
+                  password: "1234"
+      responses:
+        "200":
+          description: ""
+  /users:
+    post:
+      tags:
+        - user
+      summary: Create User
+      description: Create User
+      operationId: createUser
+      parameters:
+        - name: x-api-key
+          in: header
+          schema:
+            type: string
+            example: L0rd0fTheRings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickname:
+                  type: string
+                  example: matheusml
+                password:
+                  type: string
+                  example: "1234"
+            examples:
+              Create User:
+                value:
+                  nickname: matheusml
+                  password: "1234"
+      responses:
+        "200":
+          description: ""
+tags:
+  - name: dishes
+  - name: user
